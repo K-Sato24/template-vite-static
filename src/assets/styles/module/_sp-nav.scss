@@ -1,0 +1,104 @@
+@use "../settings" as *;
+
+.sp-nav {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  visibility: hidden;
+  // translate: 0 100%;
+  height: 100dvh;
+  overflow-y: scroll;
+  // padding-block: 100px;
+  background-color: var(--color-main);
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-in-out-quad),
+    visibility 0.3s var(--ease-in-out-quad);
+  //   transition: opacity 0.6s var(--ease-out-expo),
+  // visibility 0.6s var(--ease-out-expo), transform 0.6s var(--ease-out-expo);
+}
+
+.sp-nav__container.container {
+  display: grid;
+  place-content: center;
+  min-height: 100%;
+}
+
+.sp-nav.is-active {
+  visibility: visible;
+  opacity: 1;
+  // translate: 0;
+}
+
+.sp-nav__items {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: calc(40 * var(--px-to-rem));
+  place-content: center;
+  place-items: center;
+  padding-block: 40px;
+  padding-inline: 10px;
+  // display: flex;
+  // flex-direction: column;
+  // row-gap: calc(10 * var(--px-to-rem));
+  // max-width: calc(180 * var(--px-to-rem));
+  // margin-inline: auto;
+}
+
+.sp-nav__item {
+  font-size: calc(20 * var(--px-to-rem));
+  font-weight: var(--font-weight-bold);
+}
+
+.sp-nav__item a {
+  position: relative;
+  padding-right: 28px;
+  transition: 0.3s color var(--ease-out-quad);
+}
+
+@media (any-hover: hover) {
+  .sp-nav__item a:hover {
+    padding-right: 32px;
+    color: var(--color-main);
+    opacity: 1;
+  }
+}
+
+.sp-nav__links {
+  padding-block: 40px;
+  margin-top: 20px;
+}
+
+.sp-nav__sns-items {
+  display: flex;
+  column-gap: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+.sp-nav__sns-item {
+  width: 26px;
+}
+
+.sp-nav__sns-item img {
+  width: 100%;
+  object-fit: contain;
+}
+
+.sp-nav__contact {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.sp-nav__contact a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 250px;
+  min-height: 50px;
+  padding: calc(15 * var(--px-to-rem));
+  font-size: calc(20 * var(--px-to-rem));
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  background-color: var(--color-accent);
+  border-radius: 100vmax;
+}

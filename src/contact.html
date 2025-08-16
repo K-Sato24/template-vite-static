@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    {{> head }}
+  </head>
+
+  <body>
+    {{> header }}
+
+    <main>
+      <section class="contact">
+        <div class="contact__container container">
+          <h2 class="contact__title section-title">お問い合わせ</h2>
+          <div class="contact__wrap">
+            <form action="receive.php" method="post" enctype="multipart/form-data" class="form">
+              <p>
+                <label>
+                  <span class="form__term">お名前（必須）</span><br />
+                  <input
+                    type="text"
+                    name="your-name"
+                    placeholder="山田太郎"
+                    required
+                    class="form__textfield"
+                    autocomplete="name"
+                  />
+                </label>
+              </p>
+              <p>
+                <label>
+                  <span class="form__term">電話番号</span><br />
+                  <input type="tel" name="tel" placeholder="000-0000-0000" class="form__textfield" autocomplete="tel" />
+                </label>
+              </p>
+              <p>
+                <label>
+                  <span class="form__term">メールアドレス（必須）</span><br />
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="〇〇@〇〇mail.com"
+                    required
+                    class="form__textfield"
+                    autocomplete="email"
+                  />
+                </label>
+              </p>
+              <p>
+                <label>
+                  <span class="form__term">住所（必須）</span><br />
+                  <input
+                    type="text"
+                    name="address"
+                    placeholder="東京都渋谷区〇〇-〇〇"
+                    required
+                    class="form__textfield"
+                    autocomplete="street-address"
+                  />
+                </label>
+              </p>
+              <p>
+                <label>
+                  <span class="form__term">希望日時（必須）</span><br />
+                  <input type="date" name="date" required class="form__date" />
+                </label>
+              </p>
+              <p>
+                <label>
+                  <span class="form__term">画像</span><br />
+                  <input type="file" name="thumbnail" class="form__file" />
+                </label>
+              </p>
+              <fieldset class="form__fieldset">
+                <legend class="form__term">お問い合わせ項目（1つだけ選択）</legend>
+                <ul>
+                  <li>
+                    <label>
+                      <input
+                        type="radio"
+                        name="inquiry"
+                        value="まずは相談したい"
+                        required
+                        class="form__radio"
+                      />まずは相談したい
+                    </label>
+                  </li>
+                  <li>
+                    <label>
+                      <input type="radio" name="inquiry" value="申込をしたい" class="form__radio" />申込をしたい
+                    </label>
+                  </li>
+                  <li>
+                    <label>
+                      <input
+                        type="radio"
+                        name="inquiry"
+                        value="その他のお問い合わせ"
+                        class="form__radio"
+                      />その他のお問い合わせ
+                    </label>
+                  </li>
+                </ul>
+              </fieldset>
+              <p>
+                <label>
+                  <span class="form__term">カテゴリ（必須項目）</span><br />
+                  <select name="category" required class="form__select">
+                    <option value="" selected disabled>カテゴリーを選択して下さい</option>
+                    <hr />
+                    <option>カテゴリ１</option>
+                    <option>カテゴリ２</option>
+                    <option>カテゴリ３</option>
+                    <option>カテゴリ４</option>
+                    <option>カテゴリ５</option>
+                  </select>
+                </label>
+              </p>
+              <p>
+                <label>
+                  <span class="form__term">お問い合わせ内容（必須項目）</span><br />
+                  <textarea name="content" required class="form__textarea"></textarea>
+                </label>
+              </p>
+              <fieldset class="form__fieldset">
+                <legend class="form__term">どこで〇〇を知りましたか？（複数選択可）</legend>
+                <ul>
+                  <li>
+                    <label>
+                      <input type="checkbox" name="where[]" value="WEB広告" class="form__checkbox" />WEB広告
+                    </label>
+                  </li>
+                  <li>
+                    <label> <input type="checkbox" name="where[]" value="SNS" class="form__checkbox" />SNS </label>
+                  </li>
+                  <li>
+                    <label>
+                      <input
+                        type="checkbox"
+                        name="where[]"
+                        value="インターネット検索"
+                        class="form__checkbox"
+                      />インターネット検索
+                    </label>
+                  </li>
+                  <li>
+                    <label> <input type="checkbox" name="where[]" value="紹介" class="form__checkbox" />紹介 </label>
+                  </li>
+                  <li>
+                    <label>
+                      <input type="checkbox" name="where[]" value="その他" class="form__checkbox" />その他
+                    </label>
+                  </li>
+                </ul>
+              </fieldset>
+              <p><button class="form__button">投稿する</button></p>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+    {{> footer }}
+  </body>
+</html>

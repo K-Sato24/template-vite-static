@@ -1,0 +1,75 @@
+name: Deploy to Staging via FTP
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  precheck:
+    runs-on: ubuntu-latest
+    outputs:
+      ok: ${{ steps.gate.outputs.ok }}
+    steps:
+      - id: gate
+        env:
+          H: ${{ secrets.FTP_HOST }}
+          U: ${{ secrets.FTP_USER }}
+          P: ${{ secrets.FTP_PASS }}
+        run: |
+          if [ -n "$H" ] && [ -n "$U" ] && [ -n "$P" ]; then
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  ftp-deploy:
+    needs: precheck
+    if: ${{ needs.precheck.outputs.ok == 'true' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        env:
+          VITE_BASE_URL: ${{ secrets.STAGING_URL }}
+          # VITE_HASH: "false"
+          # VITE_PURGE: "false"
+        run: npm run build
+
+      # 1) assets をクリーン入替（古いハッシュ掃除）
+      - name: Upload assets (clean)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:   ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
+          local-dir: ./dist/assets/
+          server-dir: "/wp657951.wpx.jp/public_html/test/my-template_vite-test/assets/"
+          dangerous-clean-slate: true
+          exclude: |
+            **/.htaccess
+
+      # 2) 残り（HTML/PHP/public由来など）を差分アップ（assetsは除外）
+      - name: Upload rest (no clean)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server:   ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
+          local-dir: ./dist/
+          server-dir: "/wp657951.wpx.jp/public_html/test/my-template_vite-test/"
+          exclude: |
+            assets/**
+            **/.htaccess

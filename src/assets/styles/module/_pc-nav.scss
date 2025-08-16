@@ -1,0 +1,83 @@
+@use "../settings" as *;
+
+.pc-nav {
+  --clamp-viewport-min: 768;
+  --clamp-min: 16;
+  --clamp-max: 20;
+  column-gap: calc(20 * var(--px-to-rem));
+  align-items: center;
+  justify-content: center;
+  height: inherit;
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+}
+
+.pc-nav.desktop-only {
+  display: none;
+
+  @include mq("md") {
+    display: flex;
+  }
+}
+
+.pc-nav__items {
+  display: flex;
+  column-gap: calc(20 * var(--px-to-rem));
+  align-items: center;
+  justify-content: center;
+  height: inherit;
+}
+
+.pc-nav__item {
+  height: inherit;
+}
+
+.pc-nav__item a {
+  display: grid;
+  place-content: center;
+  height: inherit;
+}
+
+.pc-nav__links {
+  display: flex;
+  column-gap: calc(10 * var(--px-to-rem));
+  align-items: center;
+  justify-content: center;
+}
+
+.pc-nav__sns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(60 * var(--px-to-rem));
+  padding: calc(20 * var(--px-to-rem));
+  background-color: var(--color-light);
+  border-radius: 100vmax;
+}
+
+.pc-nav__sns-items {
+  display: flex;
+  column-gap: calc(10 * var(--px-to-rem));
+  align-items: center;
+  justify-content: center;
+}
+
+.pc-nav__sns-item a {
+  display: inline-block;
+  width: calc(20 * var(--px-to-rem));
+}
+
+.pc-nav__sns-item img {
+  width: 100%;
+  object-fit: contain;
+}
+
+.pc-nav__contact a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(60 * var(--px-to-rem));
+  padding: calc(15 * var(--px-to-rem));
+  background-color: var(--color-accent);
+  border-radius: 100vmax;
+}

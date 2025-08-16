@@ -1,0 +1,93 @@
+@use "../settings" as *;
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  height: $header-height-md;
+  background-color: transparent;
+  // ヘッダーと次のコンテンツを被らせたい場合
+  // position: fixed;position
+  // width: 100%;
+  // height: var(--header-height-md);
+
+  @include mq("md") {
+    // height: var(--header-height-lg);height
+    height: $header-height-lg;
+    background-color: var(--color-light);
+  }
+}
+
+.header.shadow {
+  @include mq("md") {
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.2);
+  }
+}
+
+@if $startFrom == sp {
+  .header__container.container {
+    max-width: 100%;
+    height: inherit;
+
+    @include mq("md") {
+      // max-width: calc(
+      //   $container-max-width-lg + $container-padding-inline-lg * 2
+      // );max-width
+      padding-inline: $container-padding-inline-lg;
+    }
+  }
+} @else {
+  .header__container.container {
+    height: inherit;
+
+    @include mq("md") {
+      max-width: 100%;
+    }
+  }
+}
+
+// @if $startFrom == sp {
+//   .header__container.container {
+//     height: inherit;height
+//     max-width: 100%;max-width
+
+//     @include mq("md") {
+//       max-width: calc(
+//         var(--container-max-width-lg) + var(--container-padding-inline-lg) * 2
+//       );max-width
+//       padding-inline: var(--container-padding-inline-lg);padding-inline
+//     }
+//   }
+// } @else {
+//   .header__container.container {
+//     height: inherit;height
+
+//     @include mq("md") {
+//       max-width: 100%;max-width
+//     }
+//   }
+// }
+
+.header__content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: inherit;
+}
+
+.header__logo {
+  z-index: 9999;
+  flex-shrink: 0;
+  width: 40px;
+  aspect-ratio: 1;
+
+  @include mq("md") {
+    width: 50px;
+  }
+}
+
+.header__logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

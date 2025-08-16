@@ -1,0 +1,206 @@
+/* =====================================
+	Global Settings
+===================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  min-inline-size: 0;
+  padding: 0;
+  margin: 0;
+  scrollbar-gutter: stable;
+  border-style: solid;
+  border-width: 0;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* =====================================
+	Root Element Defaults
+===================================== */
+:where(:root) {
+  scrollbar-gutter: stable;
+  font-style: normal;
+  overflow-wrap: anywhere;
+  scroll-behavior: smooth;
+  line-break: strict;
+  text-rendering: optimizelegibility;
+  -webkit-tap-highlight-color: transparent;
+
+  &:has(:where(:modal)) {
+    overflow: hidden;
+  }
+}
+
+/* =====================================
+	Body Element Defaults
+===================================== */
+:where(body) {
+  min-block-size: 100svb;
+}
+
+/* =====================================
+	Prefers Reduced Motion
+===================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after,
+  ::backdrop {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    view-transition-name: none !important;
+  }
+}
+
+/* =====================================
+	Headings
+===================================== */
+/* :where(h1, h2, h3, h4, h5, h6) {
+  text-wrap: balance;
+} */
+
+/* =====================================
+	List Reset
+===================================== */
+:where(ul, ol) {
+  list-style: none;
+}
+
+/* =====================================
+	Anchor Tag Defaults
+===================================== */
+:where(:any-link) {
+  color: unset;
+  text-decoration-skip-ink: auto;
+}
+
+/* =====================================
+	Media Elements Reset
+===================================== */
+:where(img, svg, video, canvas, audio, iframe, embed, object) {
+  display: block;
+}
+
+:where(img, picture, svg, video) {
+  /* max-inline-size: 100%; */
+  inline-size: 100%;
+  block-size: auto;
+}
+
+:where(svg) {
+  fill: currentcolor;
+}
+
+/* =====================================
+	Form Element Reset
+===================================== */
+:where(input, button, select, textarea, optgroup) {
+  font: inherit;
+  font-variation-settings: inherit;
+  font-feature-settings: inherit;
+  color: inherit;
+  word-spacing: inherit;
+  letter-spacing: inherit;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+}
+
+/* =====================================
+	Textarea Resize Control
+===================================== */
+:where(textarea) {
+  resize: vertical;
+  resize: block;
+}
+
+/* =====================================
+	Clickable Elements Cursor
+===================================== */
+:where(
+    :any-link,
+    button,
+    [type="button"],
+    [type="reset"],
+    [type="submit"],
+    label[for],
+    select,
+    summary,
+    [role="tab"],
+    [role="button"]
+  ) {
+  cursor: pointer;
+}
+
+/* =====================================
+	Table Reset
+===================================== */
+:where(table) {
+  border-collapse: collapse;
+}
+
+:where(caption, th) {
+  text-align: start;
+}
+
+:where(th) {
+  font-weight: 700;
+}
+
+/* =====================================
+	Dialog and Popover Reset
+===================================== */
+:where(dialog, [popover]) {
+  max-inline-size: unset;
+  max-block-size: unset;
+  margin: auto;
+  color: unset;
+  background-color: unset;
+  border-style: none;
+}
+
+:where(dialog:not([open], [popover]), [popover]:not(:popover-open)) {
+  display: none;
+}
+
+/* =====================================
+	Accessibility Enhancements
+===================================== */
+/* アクセシビリティ対応: フォーカス時の視覚効果を抑制 */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* aria属性対応 */
+:where([aria-disabled="true"]) {
+  cursor: not-allowed;
+}
+
+:where([aria-busy="true"]) {
+  cursor: progress;
+}
+
+:where([aria-controls]) {
+  cursor: pointer;
+}
+
+:where([aria-hidden="false"][hidden]) {
+  display: initial;
+}
+
+:where([aria-hidden="false"][hidden]):not(:focus) {
+  position: absolute;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+}
+
+/* hidden属性対応 */
+:where([hidden]:not([hidden="until-found"])) {
+  display: none;
+}

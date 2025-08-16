@@ -1,0 +1,13 @@
+@use "../settings" as *;
+
+.breadcrumb {
+  color: var(--color-main);
+}
+
+.breadcrumb li {
+  display: inline;
+}
+
+.breadcrumb li:first-child {
+  text-transform: uppercase;
+}

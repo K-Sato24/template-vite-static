@@ -1,0 +1,89 @@
+{
+  // Biomeの設定ファイルのスキーマ定義。エディタの補完機能などに利用されます。
+  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+
+  // バージョン管理システム(VCS: Gitなど)との連携設定
+  "vcs": {
+    // Gitとの連携を無効にする
+    "enabled": false,
+    "clientKind": "git",
+    // .gitignoreファイルを無視する
+    "useIgnoreFile": false
+  },
+
+  // 対象ファイルに関する設定
+  "files": {
+    // 不明なファイルを無視しない
+    "ignoreUnknown": false,
+    // 無視するファイルのパターンをここに記述
+    "ignore": []
+  },
+
+  // コードフォーマッターに関する設定
+  "formatter": {
+    // フォーマッターを有効にする
+    "enabled": true,
+    // 1行の最大文字数
+    "lineWidth": 120,
+    // インデントのスタイル (space or tab)
+    "indentStyle": "space"
+  },
+
+  // import文の自動整理(ソート)を有効にする
+  "organizeImports": {
+    "enabled": true
+  },
+
+  // 静的解析(リンター)に関する設定
+  "linter": {
+    // リンターを有効にする
+    "enabled": true,
+    // ルールの設定
+    "rules": {
+      // Biomeが推奨する基本的なルールセットをすべて有効にする
+      "recommended": true,
+
+      // 「コードの誤り」に関するルールの個別設定
+      "correctness": {
+        // 不明なCSSメディア特性名を許可する
+        "noUnknownMediaFeatureName": "off",
+        // 不明なCSS関数を許可する
+        "noUnknownFunction": "off"
+      },
+
+      // 「コードの複雑さ」に関するルールの個別設定
+      "complexity": {
+        // forEachの使用を許可する
+        "noForEach": "off",
+        // 不要なundefinedでの初期化に警告を出す
+        "noUselessUndefinedInitialization": "warn"
+      },
+
+      // 「実験的」なルールの個別設定 (Nursery)
+      "nursery": {
+        // 詳細度が低くなるセレクタを禁止
+        "noDescendingSpecificity": "error",
+        // 重複したプロパティを禁止
+        "noDuplicateProperties": "error",
+        // var()関数内のカスタムプロパティ名の欠落を禁止
+        "noMissingVarFunction": "error",
+        // 不明な擬似クラスを禁止
+        "noUnknownPseudoClass": "error",
+        // 不明な擬似要素を禁止
+        "noUnknownPseudoElement": "error",
+        // 不明なタイプセレクタを禁止
+        "noUnknownTypeSelector": "error",
+        // 不規則な空白を禁止
+        "noIrregularWhitespace": "error"
+      }
+    }
+  },
+
+  // JavaScript/TypeScriptに特化した設定
+  "javascript": {
+    "formatter": {
+      // 文字列をダブルクォート(")に統一
+      "quoteStyle": "double"
+    }
+  }
+}

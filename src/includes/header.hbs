@@ -1,0 +1,116 @@
+<header class="header js-header" data-fixed-header>
+  <div class="header__container container">
+    <div class="header__content">
+      <h1 class="header__logo">
+        <a href="/#top">
+          <picture>
+            <source srcset="/assets/images/logo_main.webp" type="image/webp" />
+            <img src="/assets/images/logo_main.png" alt="株式会社〇〇" width="100" height="100" />
+          </picture>
+        </a>
+      </h1>
+
+      <nav class="header__pc-nav pc-nav desktop-only" aria-label="グローバルナビゲーション">
+        <ul class="pc-nav__items">
+          <li class="pc-nav__item"><a href="/#about">私たちについて</a></li>
+          <li class="pc-nav__item"><a href="/#news">お知らせ</a></li>
+          <li class="pc-nav__item"><a href="/#column">コラム</a></li>
+          <li class="pc-nav__item"><a href="/#qa">Q&A</a></li>
+        </ul>
+
+        <div class="pc-nav__links">
+          <div class="pc-nav__sns">
+            <ul class="pc-nav__sns-items">
+              <li class="pc-nav__sns-item">
+                <a href="" target="_blank">
+                  <picture>
+                    <source srcset="/assets/images/icon_youtube.webp" type="image/webp" />
+                    <img src="/assets/images/icon_youtube.png" alt="YouTube" width="100" height="100" />
+                  </picture>
+                </a>
+              </li>
+              <li class="pc-nav__sns-item">
+                <a href="" target="_blank">
+                  <picture>
+                    <source srcset="/assets/images/icon_instagram.webp" type="image/webp" />
+                    <img src="/assets/images/icon_instagram.png" alt="Instagram" width="100" height="100" />
+                  </picture>
+                </a>
+              </li>
+              <li class="pc-nav__sns-item">
+                <a href="" target="_blank">
+                  <picture>
+                    <source srcset="/assets/images/icon_x.webp" type="image/webp" />
+                    <img src="/assets/images/icon_x.png" alt="X" width="100" height="100" />
+                  </picture>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="pc-nav__contact">
+            <a href="/contact.html">お問い合わせ</a>
+          </div>
+        </div>
+      </nav>
+
+      <button
+        type="button"
+        class="header__drawer hamburger js-hamburger mobile-only"
+        aria-controls="global-nav"
+        aria-expanded="false"
+      >
+        <span class="hamburger__line">
+          <span class="visually-hidden">メニューを開閉する</span>
+        </span>
+        <span class="hamburger__text">メニュー</span>
+        <span class="hamburger__text is-hidden">閉じる</span>
+      </button>
+
+      <nav id="global-nav" class="header__sp-nav sp-nav js-drawer mobile-only" aria-label="モバイルナビゲーション">
+        <div class="sp-nav__container container">
+          <ul class="sp-nav__items">
+            <li class="sp-nav__item"><a href="/#about">私たちについて</a></li>
+            <li class="sp-nav__item"><a href="/#news">お知らせ</a></li>
+            <li class="sp-nav__item"><a href="/#column">コラム</a></li>
+            <li class="sp-nav__item"><a href="/#qa">Q&A</a></li>
+          </ul>
+
+          <div class="sp-nav__links">
+            <div class="sp-nav__sns">
+              <ul class="sp-nav__sns-items">
+                <li class="sp-nav__sns-item">
+                  <a href="" target="_blank">
+                    <picture>
+                      <source srcset="/assets/images/icon_youtube.webp" type="image/webp" />
+                      <img src="/assets/images/icon_youtube.png" alt="YouTube" width="100" height="100" />
+                    </picture>
+                  </a>
+                </li>
+                <li class="sp-nav__sns-item">
+                  <a href="" target="_blank">
+                    <picture>
+                      <source srcset="/assets/images/icon_instagram.webp" type="image/webp" />
+                      <img src="/assets/images/icon_instagram.png" alt="Instagram" width="100" height="100" />
+                    </picture>
+                  </a>
+                </li>
+                <li class="sp-nav__sns-item">
+                  <a href="" target="_blank">
+                    <picture>
+                      <source srcset="/assets/images/icon_x.webp" type="image/webp" />
+                      <img src="/assets/images/icon_x.png" alt="X" width="100" height="100" />
+                    </picture>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="sp-nav__contact">
+              <a href="./contact.html">お問い合わせ</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+    </div>
+  </div>
+</header>

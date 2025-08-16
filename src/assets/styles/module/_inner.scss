@@ -1,0 +1,27 @@
+// @use "../settings" as *;
+
+// @if $startFrom == sp {
+//   .inner {
+//     width: 100%;
+//     max-width: rem(strip-unit($inner-sp));
+//     padding-inline: rem(strip-unit($padding-sp));
+//     margin-inline: auto;
+
+//     @include mq("md") {
+//       max-width: rem(strip-unit($inner-pc) + strip-unit($padding-pc) * 2);
+//       padding-inline: rem(strip-unit($padding-pc));
+//     }
+//   }
+// } @else {
+//   .inner {
+//     max-width: rem(strip-unit($inner-pc) + strip-unit($padding-pc) * 2);
+//     padding-inline: rem(strip-unit($padding-pc));
+//     width: 100%;
+//     margin-inline: auto;
+
+//     @include mq("md") {
+//       max-width: rem(strip-unit($inner-sp));
+//       padding-inline: rem(strip-unit($padding-sp));
+//     }
+//   }
+// }

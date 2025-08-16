@@ -1,0 +1,166 @@
+@use "../settings" as *;
+
+// fontはreset.scssでinheritしてある
+// 疑似要素はinheritできないので、別途指定すること
+// 入力欄はfont-size: 16px; 以上とすること（iOS対策）
+
+.form {
+  display: grid;
+  row-gap: calc(40 * var(--px-to-rem));
+  margin-block: calc(60 * var(--px-to-rem)) 0;
+}
+
+.form :focus-visible {
+  outline: 2px solid var(--color-main);
+  outline-offset: 2px;
+}
+
+.form__term {
+  display: inline-block;
+  margin-block: 0 calc(10 * var(--px-to-rem));
+}
+
+// [type="text"],
+// [type="search"],
+// [type="tel"],
+// [type="url"],
+// [type="email"],
+// [type="password"],
+// [type="date"],
+// textarea
+// select
+.form__date,
+.form__select,
+.form__textfield,
+.form__textarea {
+  width: 100%;
+  padding-block: calc(12 * var(--px-to-em));
+  padding-inline: calc(12 * var(--px-to-em));
+  border: 1px solid;
+  border-radius: calc(10 * var(--px-to-em));
+}
+
+.form__textarea {
+  height: calc(400 * var(--px-to-rem));
+}
+
+// [type="date"]
+.form__date {
+  max-width: calc(400 * var(--px-to-rem));
+  // カスタムのアイコンの場合
+  // position: relative;
+  // appearance: none;
+  // background-image: url(../assets/images/icon_calender.svg);
+  // background-repeat: no-repeat;
+  // background-position: 95% 50%;
+}
+
+// [type="date"]::-webkit-calendar-picker-indicator
+// .form__date::-webkit-calendar-picker-indicator {
+// カスタムのアイコンの場合
+// opacity: 0;
+// position: absolute;
+// width: 100%;
+// height: 100%;
+// }
+
+// [type="date"]::-webkit-calendar-picker-indicator:focus-visible
+.form__date::-webkit-calendar-picker-indicator:focus-visible {
+  outline: 2px solid var(--color-main);
+  outline-offset: 2px;
+}
+
+// [type="text"]::file-selector-button
+.form__file::file-selector-button {
+  padding-block: calc(8 * var(--px-to-rem));
+  padding-inline: calc(10 * var(--px-to-rem));
+  // 疑似要素なので、font: inherit;できないので要指定
+  font-size: calc(16 * var(--px-to-rem));
+  color: var(--base-font-color);
+  cursor: pointer;
+  background-color: var(--color-light);
+  border-radius: calc(10 * var(--px-to-em));
+}
+
+// select
+.form__select {
+  max-width: calc(400 * var(--px-to-rem));
+  // デフォルトのドロップダウンの場合
+  // appearance: auto;
+  // カスタムのドロップダウンの場合
+  background-image: url(../assets/images/icon_down.svg);
+  background-repeat: no-repeat;
+  background-position: 95% 50%;
+}
+
+.form__fieldset {
+  border: none;
+}
+
+.form__fieldset ul li {
+  display: inline-block;
+  margin-inline: 0 calc(10 * var(--px-to-rem));
+}
+
+.form__fieldset ul li label {
+  display: flex;
+  column-gap: calc(8 * var(--px-to-rem));
+  align-items: center;
+}
+
+// [type="radio"],
+// [type="checkbox"]
+.form__radio,
+.form__checkbox {
+  position: relative;
+  width: calc(20 * var(--px-to-em));
+  aspect-ratio: 1;
+  background-color: var(--color-light);
+  border: 1px solid;
+}
+
+// [type="radio"]
+.form__radio {
+  border-radius: 50%;
+}
+
+// [type="radio"]:checked::after,
+// [type="checkbox"]:checked::after
+.form__radio:checked::after,
+.form__checkbox:checked::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(12 * var(--px-to-rem));
+  aspect-ratio: 1;
+  content: "";
+  background-color: var(--color-main);
+  translate: -50% -50%;
+}
+
+// [type="radio"]:checked::after
+.form__radio:checked::after {
+  border-radius: 50%;
+}
+
+// [type="checkbox"]:checked::after
+.form__checkbox:checked::after {
+  clip-path: polygon(0 64%, 45% 100%, 100% 4%, 95% 0, 39% 82%, 6% 56%);
+}
+
+// button,
+// [type="button"],
+// [type="submit"]
+.form__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding-block: calc(10 * var(--px-to-rem));
+  padding-inline: calc(20 * var(--px-to-rem));
+  line-height: 1;
+  color: var(--sub-color);
+  cursor: pointer;
+  background: var(--color-main);
+  border-radius: calc(10 * var(--px-to-em));
+  transition: 0.3s opacity;
+}

@@ -1,0 +1,56 @@
+name: Deploy to Production via FTP (No Cache Clear)
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  precheck:
+    runs-on: ubuntu-latest
+    outputs:
+      ok: ${{ steps.gate.outputs.ok }}
+    steps:
+      - id: gate
+        env:
+          H: ${{ secrets.PROD_FTP_HOST }}
+          U: ${{ secrets.PROD_FTP_USER }}
+          P: ${{ secrets.PROD_FTP_PASS }}
+        run: |
+          if [ -n "$H" ] && [ -n "$U" ] && [ -n "$P" ]; then
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  ftp-deploy:
+    needs: precheck
+    if: ${{ needs.precheck.outputs.ok == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build for Production
+        env:
+          VITE_BASE_URL: ${{ secrets.PRODUCTION_URL }}
+          # VITE_HASH: "false"
+          # VITE_PURGE: "false"
+        run: npm run build:production
+
+      - name: Upload to Production FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.PROD_FTP_HOST }}
+          username: ${{ secrets.PROD_FTP_USER }}
+          password: ${{ secrets.PROD_FTP_PASS }}
+          local-dir: ./dist/
+          server-dir: "wp657951.wpx.jp/public_html/test/test/prod/"

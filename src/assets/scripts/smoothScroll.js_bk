@@ -1,0 +1,148 @@
+/*!*
+ * ページ内リンクのスムーススクロール処理（実務対応版・座標スクロール／外部=即時＆フォーカスなし）
+ *
+ * 要件：
+ * - 内部クリック：Reduced Motion を尊重して smooth/auto。ターゲットにフォーカス（記事どおり）
+ * - 外部着地 & hashchange：常に auto（即時）。フォーカスしない
+ * - data-smooth-scroll="disabled"：常に auto（即時）
+ * - 固定ヘッダー控除： [data-fixed-header], .header の fixed/sticky な高さの合計を差し引く
+ * - URLハッシュ更新：pushState で更新（#top は除外）
+ *
+ * 重要：
+ * - 初期表示で location.hash がある場合、UAのフラグメントスクロールより先に一時的に 'auto' を強制する
+ *   （外部リンク着地の“スムース化”を確実に禁止）
+ */
+
+/*!* 外部着地のスムースを確実に禁止：評価時点で 'auto' を先に強制 */
+const __hasInitialHash = !!location.hash;
+if (__hasInitialHash) {
+  document.documentElement.style.scrollBehavior = "auto";
+}
+
+export function initSmoothScroll() {
+  document.addEventListener("click", onClick, { capture: true });
+
+  // 外部から #hash 付きで着地：次フレームで即時あわせ（ヘッダー控除）
+  if (location.hash) {
+    requestAnimationFrame(() => {
+      alignToCurrentHashInstant();
+      // 元のスクロール挙動を復帰
+      requestAnimationFrame(() => {
+        document.documentElement.style.scrollBehavior = "";
+      });
+    });
+  } else {
+    // 初期に強制した 'auto' をクリーンアップ（ハッシュ無しケース）
+    if (__hasInitialHash === false) {
+      document.documentElement.style.scrollBehavior = "";
+    }
+  }
+
+  // 戻る/進む・アドレスバー変更などの hashchange でも即時合わせ（フォーカスなし）
+  window.addEventListener("hashchange", () => {
+    alignToCurrentHashInstant();
+  });
+}
+
+/*!* 固定ヘッダー合計高さ（fixed/sticky のみ加算） */
+function getHeaderOffset() {
+  const nodes = Array.from(document.querySelectorAll("[data-fixed-header], .header"));
+  let sum = 0;
+  for (const el of nodes) {
+    const { position } = getComputedStyle(el);
+    if (position === "fixed" || position === "sticky") {
+      const h = el.getBoundingClientRect().height;
+      if (!Number.isNaN(h)) sum += h;
+    }
+  }
+  return Math.round(sum);
+}
+
+/*!* 内部クリック：座標スクロール（Reduced Motion / 無効化フラグ対応） */
+function onClick(e) {
+  if (e.button !== 0) return;
+
+  const a = e.target.closest?.('a[href*="#"]');
+  if (!a) return;
+
+  // 同一ページ内のみ処理（絶対/相対URL問わず、同一オリジン＆同一パス）
+  const url = new URL(a.href, location.href);
+  if (url.origin !== location.origin || url.pathname !== location.pathname) return;
+
+  const hash = url.hash;
+  if (!hash || hash === "#") return;
+  if (a.getAttribute("role") === "tab" || a.getAttribute("role") === "button") return;
+
+  const disabled = a.getAttribute("data-smooth-scroll") === "disabled";
+  const prefersReduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const behavior = disabled || prefersReduced ? "auto" : "smooth";
+
+  // 目標座標
+  const header = getHeaderOffset();
+  const top =
+    hash === "#top"
+      ? 0
+      : (() => {
+          const t = document.getElementById(decodeURIComponent(hash.slice(1)));
+          if (!t) return null;
+          return Math.round(t.getBoundingClientRect().top + window.scrollY - header);
+        })();
+  if (top === null) return;
+
+  e.preventDefault();
+  window.scrollTo({ top, behavior });
+
+  // 記事どおり：内部クリック時はフォーカス
+  if (hash !== "#top") {
+    const t = document.getElementById(decodeURIComponent(hash.slice(1)));
+    if (t instanceof HTMLElement) {
+      t.setAttribute("tabindex", "-1");
+      t.focus({ preventScroll: true });
+      t.addEventListener(
+        "blur",
+        () => {
+          if (t.getAttribute("tabindex") === "-1") t.removeAttribute("tabindex");
+        },
+        { once: true },
+      );
+    }
+  }
+
+  if (hash !== "#top") history.pushState({}, "", hash);
+}
+
+/*!* 外部着地 / hashchange：即時ジャンプ＋ヘッダー控除（フォーカスなし） */
+function alignToCurrentHashInstant() {
+  const { hash } = location;
+  if (!hash) return;
+
+  if (hash === "#top") {
+    window.scrollTo({ top: 0, behavior: "auto" });
+    return;
+  }
+
+  const target = document.getElementById(decodeURIComponent(hash.slice(1)));
+  if (!target) return;
+
+  const header = getHeaderOffset();
+  const top = Math.round(target.getBoundingClientRect().top + window.scrollY - header);
+
+  // UAのスムースを確実に抑止（このタイミングでも二重ガード）
+  withInstantBehavior(() => {
+    window.scrollTo({ top, behavior: "auto" });
+  });
+}
+
+/*!* 実行中のみドキュメントのスクロール挙動を 'auto' に強制（UAのスムースより優先） */
+function withInstantBehavior(fn) {
+  const root = document.documentElement;
+  const prev = root.style.scrollBehavior;
+  root.style.scrollBehavior = "auto";
+  try {
+    fn();
+  } finally {
+    requestAnimationFrame(() => {
+      root.style.scrollBehavior = prev;
+    });
+  }
+}

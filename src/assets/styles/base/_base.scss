@@ -1,0 +1,113 @@
+@use "../settings" as *;
+
+html,
+body {
+  /* footerを常に画面最下部に表示を実現するために必要 */
+  min-height: 100vh;
+  min-height: 100svh;
+  min-height: 100dvh;
+}
+
+body > footer {
+  /* コンテンツが少ない場合も常にfooterを画面最下部に表示 */
+  position: sticky;
+  top: 100vh;
+  top: 100svh;
+  top: 100dvh;
+}
+
+// html {
+//   scroll-behavior: smooth;
+// }
+
+// #test {
+//   scroll-margin-top: var(--header-height);
+// }
+
+a {
+  color: inherit;
+  text-decoration: none;
+
+  // @media (any-hover: hover) {
+  //   transition: opacity 0.3s;
+
+  //   &:hover {
+  //     opacity: 0.8;
+  //   }
+  // }
+}
+
+@if $startFrom == sp {
+  //pcで表示
+  .desktop-only {
+    display: none;
+    @include mq("md") {
+      display: revert;
+    }
+  }
+
+  //モバイルのみ表示
+  .mobile-only {
+    @include mq("md") {
+      display: none;
+    }
+  }
+} @else {
+  //pcで表示
+  .desktop-only {
+    display: revert;
+    @include mq("md") {
+      display: none;
+    }
+  }
+
+  //モバイルのみ表示
+  .mobile-only {
+    display: none;
+    @include mq("md") {
+      display: revert;
+    }
+  }
+}
+
+.is-fixed {
+  overflow: hidden;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+/* Container幅をはみ出して全画面表示 */
+// containerの親要素にoverflow-x: hidden;すること
+.overflow-container {
+  width: 100vw;
+  margin-inline: calc(50% - 50dvw);
+}
+
+.overflow-container-left {
+  margin-inline: calc(50% - 50vw) 0;
+}
+
+.overflow-container-right {
+  margin-inline: 0 calc(50% - 50vw);
+}
+
+/* 視覚的に非表示にするユーティリティクラス（スクリーンリーダー対応） */
+:where(.visually-hidden:not(:focus-within, :active)) {
+  position: absolute !important;
+  inline-size: 1px !important;
+  block-size: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+  user-select: none !important;
+  border: 0 !important;
+  clip-path: inset(50%) !important;
+}
+
+:where(:focus-visible) {
+  outline-offset: 3px;
+  // outline: 3px solid var(--color-accent);
+}

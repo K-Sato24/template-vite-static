@@ -1,0 +1,29 @@
+{
+  "extends": ["markuplint:recommended"],
+  "parser": {
+    "\\.(html|hbs|mustache)$": "@markuplint/mustache-parser",
+    "\\.php$": "@markuplint/php-parser"
+  },
+  "rules": {
+    "doctype": true,
+    "required-attr": true,
+    "required-element": true,
+    "no-orphaned-end-tag": true,
+    "permitted-contents": true
+  },
+  "overrides": {
+    "src/**/*.html": {
+      "rules": {
+        "required-h1": false
+      }
+    },
+    "src/includes/**/*.(hbs|html|mustache)": {
+      "rules": {
+        "doctype": false,
+        "required-attr": false,
+        "required-element": false,
+        "permitted-contents": false
+      }
+    }
+  }
+}

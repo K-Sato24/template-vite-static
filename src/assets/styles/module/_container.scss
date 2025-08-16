@@ -1,0 +1,65 @@
+@use "../settings" as *;
+
+@if $startFrom == sp {
+  .container {
+    width: 100%;
+    max-width: calc($container-max-width-md + $container-padding-inline-md * 2);
+    padding-inline: $container-padding-inline-md;
+    margin-inline: auto;
+
+    @include mq("md") {
+      max-width: calc(
+        $container-max-width-lg + $container-padding-inline-lg * 2
+      );
+      padding-inline: $container-padding-inline-lg;
+    }
+  }
+} @else {
+  .container {
+    width: 100%;
+    max-width: calc($container-max-width-lg + $container-padding-inline-lg * 2);
+    padding-inline: $container-padding-inline-lg;
+    margin-inline: auto;
+
+    @include mq("md") {
+      max-width: calc(
+        $container-max-width-md + $container-padding-inline-md * 2
+      );
+      padding-inline: $container-padding-inline-md;
+    }
+  }
+}
+
+// @if $startFrom == sp {
+//   .container {
+//     --container-max-width: var(--container-max-width-md);
+//     --container-padding-inline: var(--container-padding-inline-md);
+//     width: 100%;
+//     max-width: calc(
+//       var(--container-max-width) + var(--container-padding-inline) * 2
+//     );
+//     padding-inline: var(--container-padding-inline);
+//     margin-inline: auto;
+
+//     @include mq("md") {
+//       --container-max-width: var(--container-max-width-lg);
+//       --container-padding-inline: var(--container-padding-inline-lg);
+//     }
+//   }
+// } @else {
+//   .container {
+//     --container-max-width: var(--container-max-width-lg);
+//     --container-padding-inline: var(--container-padding-inline-lg);
+//     width: 100%;
+//     max-width: calc(
+//       var(--container-max-width) + var(--container-padding-inline) * 2
+//     );
+//     padding-inline: var(--container-padding-inline);
+//     margin-inline: auto;
+
+//     @include mq("md") {
+//       --container-max-width: var(--container-max-width-md);
+//       --container-padding-inline: var(--container-padding-inline-md);
+//     }
+//   }
+// }
