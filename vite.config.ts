@@ -104,7 +104,16 @@ export default defineConfig(({ mode }) => {
   );
 
   // ===== PostCSS プラグインの構築 =====
-  const postcssPlugins = [postcssPresetEnv({ stage: 3 })];
+  const postcssPlugins = [
+    postcssPresetEnv({
+      stage: 3,
+      features: {
+        "custom-properties": {
+          preserve: false, // カスタムプロパティのフォールバック
+        },
+      },
+    }),
+  ];
 
   if (purgeEnabled) {
     console.log("[purgecss] enabled");
