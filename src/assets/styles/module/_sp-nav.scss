@@ -46,7 +46,7 @@
 
 .sp-nav__item {
   font-size: calc(20 * var(--px-to-rem));
-  font-weight: var(--font-weight-bold);
+  font-weight: 700;
 }
 
 .sp-nav__item a {
@@ -97,7 +97,7 @@
   min-height: 50px;
   padding: calc(15 * var(--px-to-rem));
   font-size: calc(20 * var(--px-to-rem));
-  font-weight: var(--font-weight-bold);
+  font-weight: 700;
   line-height: 1;
   background-color: var(--color-accent);
   border-radius: 100vmax;
