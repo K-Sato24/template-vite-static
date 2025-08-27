@@ -50,7 +50,7 @@ jobs:
 
       # 1) assets をクリーン入替（古いハッシュ掃除）
       - name: Upload assets (clean)
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
           server:   ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USER }}
@@ -63,7 +63,7 @@ jobs:
 
       # 2) 残り（HTML/PHP/public由来など）を差分アップ（assetsは除外）
       - name: Upload rest (no clean)
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
           server:   ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USER }}
