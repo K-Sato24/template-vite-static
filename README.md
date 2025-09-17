@@ -284,22 +284,6 @@ purgecss({
 
 > **画像のパスについて:** `ogp.image`に指定するパスは、ビルド後のサイトルートから見た絶対パス（例: `/images/ogp.png`）を記述してください。`.env`ファイルに設定した`VITE_BASE_URL`が自動的に先頭に結合され、完全なURLが生成されます。
 
-### ステージング環境のnoindex自動設定
-このテンプレートでは、ステージング環境の安全な運用をサポートするため、ビルド時に`noindex`タグを自動的に付与する仕組みを備えています。
-
-- **`npm run build`** （ステージング向けビルド）を実行すると、出力される全てのHTMLファイルの`<head>`内に、`<meta name="robots" content="noindex, nofollow">`が自動で挿入されます。
-- **`npm run build:production`** （本番向けビルド）では、このタグは挿入されません。
-
-これにより、手動での設定ミスや削除忘れを防ぎ、ステージング環境が誤って検索エンジンにインデックスされてしまうリスクを回避できます。
-
-#### 機能の無効化
-この機能が不要な場合は、`src/includes/head.hbs`ファイル内の該当箇所をHandlebarsのコメントアウト構文 `{{!-- --}}` で囲んでください。
-
-```html
-{{!-- {{#if isStaging}}
-<meta name="robots" content="noindex, nofollow" />
-{{/if}} --}}
-```
 
 ---
 
