@@ -60,6 +60,7 @@
     "stylelint-config-recess-order": "^7.2.0",
     "terser": "^5.43.1",
     "vite": "^6.1.0",
+    "vite-plugin-full-reload": "^1.2.0",
     "vite-plugin-handlebars": "^2.0.0"
   },
   "volta": {

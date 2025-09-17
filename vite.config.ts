@@ -7,6 +7,7 @@ import purgecssModule from "@fullhuman/postcss-purgecss";
 import { glob } from "glob"; // HTML エントリ検出
 import postcssPresetEnv from "postcss-preset-env";
 import { defineConfig, loadEnv } from "vite";
+import fullReload from "vite-plugin-full-reload";
 import handlebars from "vite-plugin-handlebars";
 import { pageData, siteData } from "./src/data/site";
 
@@ -142,6 +143,7 @@ export default defineConfig(({ mode }) => {
 
     // ------------------ Plugins ------------------
     plugins: [
+      fullReload(["src/includes/**/*"]),
       handlebars({
         // partials の場所
         partialDirectory: resolve(__dirname, "src/includes"),
