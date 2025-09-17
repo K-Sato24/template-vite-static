@@ -14,7 +14,7 @@
     "watch:index": "chokidar \"src/assets/styles/{module,plugins,page}/**/*.scss\" -c \"npm run generate:index\" --initial --await-write-finish 500",
     "dev:vite": "vite --host",
     "dev:watch-images": "node scripts/watch-and-generate-webp.mjs",
-    "dev": "npm-run-all --parallel dev:vite watch:index dev:watch-images",
+    "dev": "npm-run-all --parallel dev:vite dev:watch-images",
     "postbuild:images": "node scripts/recompress-dist-images.mjs",
     "build": "vite build --mode staging && npm run postbuild:images",
     "build:production": "vite build --mode production && npm run postbuild:images",
