@@ -95,7 +95,7 @@
   padding-inline: 0.625em;
   // 疑似要素なので、font: inherit;できないので要指定
   font-size: calc(16 * var(--px-to-rem));
-  color: var(--base-font-color);
+  color: var(--color-dark);
   cursor: pointer;
   background-color: var(--color-light);
   border: 1px solid currentcolor;
@@ -182,4 +182,26 @@
   background: var(--color-main);
   border-radius: 0.625em;
   transition: 0.3s opacity;
+}
+.form ::placeholder,
+// その他の初期時（必須の場合のみ有効）
+// input[type="date"]:invalid,
+.form__date:invalid,
+// select:invalid,
+.form__select:invalid {
+  color: #ccc;
+  border-color: var(--color-dark);
+}
+
+// 初期値の色を変更する場合、選択肢の色も変更してしまうため上書き
+// select option
+.form__select option {
+  color: var(--color-dark);
+}
+
+.form input:user-invalid:not(:focus),
+.form textarea:user-invalid:not(:focus),
+.form select:user-invalid:not(:focus) {
+  background-color: color-mix(in srgb, var(--color-main) 20%, transparent);
+  border: 1px solid var(--color-main);
 }
